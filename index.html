@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>官网访问验证</title>
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="bg"></div>
+
+  <main class="wrap">
+    <section class="card" role="region" aria-label="官网访问验证">
+      <header class="header">
+        <div class="brand">
+          <div class="lock" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M17 10h-1V8a4 4 0 0 0-8 0v2H7a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2Zm-7-2a2 2 0 1 1 4 0v2h-4V8Zm9 11a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <h1>官网访问验证</h1>
+        </div>
+
+        <div class="tools" aria-label="显示设置">
+          <div class="seg" role="group" aria-label="主题">
+            <button id="btnLight" class="seg-btn" type="button" title="亮">
+              <span class="icon">☀</span><span>亮</span>
+            </button>
+            <button id="btnDark" class="seg-btn" type="button" title="暗">
+              <span class="icon">🌙</span><span>暗</span>
+            </button>
+            <button id="btnFollow" class="seg-btn" type="button" title="跟随系统">
+              <span class="icon">🖥</span><span>跟随</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <div class="hint">
+        <span class="hint-ico" aria-hidden="true">🔖</span>
+        <span>在键盘上同时按下</span>
+        <kbd>Ctrl</kbd><span>+</span><kbd>D</kbd>
+        <span>即可将本页面加入书签。</span>
+      </div>
+
+      <section class="panel">
+        <div class="codebox">
+          <div class="code-title">当前验证码</div>
+          <div class="code-row">
+            <div id="codeValue" class="code-value" aria-live="polite">0000</div>
+            <button id="btnRefresh" class="btn-ghost" type="button">
+              <span class="spin" aria-hidden="true">⟳</span>
+              换一组验证码
+            </button>
+          </div>
+        </div>
+
+        <div class="inputbox">
+          <input id="codeInput" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="请输入 4 位验证码" aria-label="输入验证码" />
+          <div id="err" class="err" role="alert" aria-live="polite"></div>
+        </div>
+
+        <button id="btnGo" class="btn-primary" type="button">解锁并进入官网</button>
+      </section>
+
+      <section class="tip">
+        <div class="tip-title"><span class="tip-ico" aria-hidden="true">ⓘ</span> 温馨提示</div>
+        <div class="tip-text">
+          请务必通过官方渠道获取本页面地址，谨防钓鱼或假冒网站。验证通过后即可查看全部最新地址；
+          若发现地址无法访问，可刷新本页面或联系在线客服。
+        </div>
+      </section>
+
+      <footer class="foot">
+        <span id="footerText">© <span id="year"></span> Official Verify</span>
+      </footer>
+    </section>
+  </main>
+
+  <script src="./config.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

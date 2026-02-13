@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>验证通过</title>
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="bg"></div>
+  <main class="wrap">
+    <section class="card" role="region" aria-label="验证通过">
+      <header class="header">
+        <div class="brand">
+          <div class="lock" aria-hidden="true" style="color:var(--green);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M9 12l2 2 4-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M20 12c0 4.418-3.582 8-8 8s-8-3.582-8-8 3.582-8 8-8 8 3.582 8 8Z" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <h1>验证通过</h1>
+        </div>
+      </header>
+
+      <section class="panel">
+        <div class="tip-text" style="font-size:16px;">
+          如果浏览器无法自动跳转（或全部候选不可用），你可以手动选择官网入口：
+        </div>
+
+        <div id="bestBox" class="tip" style="margin-top:14px; display:none;">
+          <div class="tip-title"><span class="tip-ico" aria-hidden="true">✅</span> 已选择最低延迟入口</div>
+          <div class="tip-text" id="bestUrl"></div>
+        </div>
+
+        <div id="listBox" class="tip" style="margin-top:14px;">
+          <div class="tip-title"><span class="tip-ico" aria-hidden="true">🔗</span> 官网入口列表</div>
+          <div class="tip-text" id="list"></div>
+        </div>
+
+        <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn-ghost" style="text-decoration:none; display:inline-flex; align-items:center;"
+             href="./index.html">返回验证页</a>
+        </div>
+
+        <div class="tip" style="margin-top:16px;">
+          <div class="tip-title"><span class="tip-ico" aria-hidden="true">ⓘ</span> 配置提示</div>
+          <div class="tip-text">
+            你可以在 <b>config.js</b> 里配置：<br/>
+            1) <b>redirectCandidates</b>：多个官网地址（数组）<br/>
+            2) <b>probePath</b>：探测路径（建议每个官网都提供 /generate_204 或 /ping.txt）<br/>
+            3) <b>probeTimeoutMs</b> / <b>probeAttempts</b>：超时和次数<br/>
+          </div>
+        </div>
+      </section>
+
+      <footer class="foot">
+        <span>提示：此页面为纯前端静态项目，无需后端。</span>
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    (function(){
+      const best = sessionStorage.getItem("official_best_url");
+      const candidatesRaw = sessionStorage.getItem("official_candidates");
+      let list = [];
+      try{ list = JSON.parse(candidatesRaw || "[]"); }catch{}
+
+      const bestBox = document.getElementById("bestBox");
+      const bestUrl = document.getElementById("bestUrl");
+      if (best){
+        bestBox.style.display = "";
+        bestUrl.innerHTML = '<a href="'+best+'" target="_blank" rel="noopener">'+best+'</a>';
+      }
+
+      const listEl = document.getElementById("list");
+      if (!list || list.length === 0){
+        listEl.textContent = "未配置 redirectCandidates，请在 config.js 中填写官网地址数组。";
+        return;
+      }
+
+      const html = list.map(u => {
+        const safe = String(u).replace(/"/g,"&quot;");
+        return '<div style="margin:6px 0;"><a href="'+safe+'" target="_blank" rel="noopener">'+safe+'</a></div>';
+      }).join("");
+      listEl.innerHTML = html;
+    })();
+  </script>
+</body>
+</html>

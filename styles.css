@@ -1,0 +1,277 @@
+/* ========== Base ========== */
+:root{
+  --bg1:#dff7ef;
+  --bg2:#eaf6ff;
+  --card:#ffffff;
+  --text:#0b1b16;
+  --muted:#5f6f69;
+  --border:rgba(0,0,0,.08);
+  --shadow: 0 20px 60px rgba(13, 77, 56, .18);
+  --green:#15b57b;
+  --green2:#10a56f;
+  --red:#e03a3a;
+  --chip:#f3f6f5;
+  --focus: rgba(21,181,123,.25);
+}
+
+[data-theme="dark"]{
+  --bg1:#07130f;
+  --bg2:#0b1d16;
+  --card:#0f241d;
+  --text:#eaf7f2;
+  --muted:#b2c8bf;
+  --border:rgba(255,255,255,.12);
+  --shadow: 0 20px 60px rgba(0, 0, 0, .45);
+  --chip:#122b23;
+  --focus: rgba(21,181,123,.35);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC","Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif;
+  color:var(--text);
+  background: linear-gradient(140deg, var(--bg1), var(--bg2));
+}
+
+.bg{
+  position:fixed; inset:0;
+  background:
+    radial-gradient(900px 500px at 20% 90%, rgba(21,181,123,.25), transparent 65%),
+    radial-gradient(900px 600px at 85% 20%, rgba(39,155,255,.18), transparent 60%),
+    radial-gradient(600px 600px at 10% 15%, rgba(255,255,255,.6), transparent 55%);
+  pointer-events:none;
+}
+
+.wrap{
+  min-height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:40px 16px;
+}
+
+.card{
+  width:min(980px, 96vw);
+  border-radius:28px;
+  background: color-mix(in srgb, var(--card) 96%, transparent);
+  border:1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding:32px;
+  position:relative;
+}
+
+/* Header */
+.header{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:14px;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.lock{
+  width:44px; height:44px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  background: color-mix(in srgb, var(--green) 14%, var(--card));
+  color: var(--green);
+  border:1px solid color-mix(in srgb, var(--green) 30%, var(--border));
+}
+h1{
+  margin:0;
+  font-size:34px;
+  letter-spacing:.5px;
+}
+
+/* Theme segmented buttons */
+.tools{display:flex; align-items:center; gap:10px}
+.seg{
+  display:flex;
+  border:1px solid var(--border);
+  background: color-mix(in srgb, var(--chip) 75%, var(--card));
+  border-radius:999px;
+  padding:4px;
+  gap:4px;
+}
+.seg-btn{
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  padding:8px 10px;
+  border-radius:999px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  cursor:pointer;
+  font-weight:600;
+  transition: all .15s ease;
+}
+.seg-btn .icon{font-size:14px}
+.seg-btn.active{
+  background: color-mix(in srgb, var(--green) 20%, var(--card));
+  color: color-mix(in srgb, var(--green) 85%, var(--text));
+  box-shadow: 0 6px 18px rgba(21,181,123,.18);
+}
+.seg-btn:focus-visible{outline:3px solid var(--focus); outline-offset:2px}
+
+/* Hint */
+.hint{
+  display:flex; align-items:center; flex-wrap:wrap;
+  gap:8px;
+  color:var(--muted);
+  margin: 10px 0 20px;
+}
+kbd{
+  padding:4px 8px;
+  border-radius:8px;
+  border:1px solid var(--border);
+  background: color-mix(in srgb, var(--chip) 70%, var(--card));
+  font-weight:700;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+}
+
+/* Panel */
+.panel{
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:18px;
+  background: color-mix(in srgb, var(--chip) 60%, var(--card));
+}
+
+.codebox{
+  background: color-mix(in srgb, var(--card) 70%, transparent);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:16px;
+}
+.code-title{
+  font-size:14px;
+  color:var(--muted);
+  margin-bottom:8px;
+}
+.code-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+}
+.code-value{
+  font-size:48px;
+  font-weight:800;
+  color:var(--green);
+  letter-spacing:10px;
+  user-select:none;
+}
+
+.btn-ghost{
+  border:1px solid var(--border);
+  background: color-mix(in srgb, var(--card) 80%, transparent);
+  color: var(--text);
+  padding:10px 14px;
+  border-radius:14px;
+  cursor:pointer;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  transition: all .15s ease;
+}
+.btn-ghost:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(0,0,0,.10);
+}
+.btn-ghost:active{transform: translateY(0)}
+.btn-ghost:focus-visible{outline:3px solid var(--focus); outline-offset:2px}
+
+.inputbox{
+  margin-top:14px;
+}
+#codeInput{
+  width:100%;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background: color-mix(in srgb, var(--card) 86%, transparent);
+  padding:16px 18px;
+  font-size:22px;
+  text-align:center;
+  letter-spacing:12px;
+  font-weight:700;
+  color:var(--text);
+}
+#codeInput:focus{
+  outline:3px solid var(--focus);
+  border-color: color-mix(in srgb, var(--green) 40%, var(--border));
+}
+.err{
+  min-height:20px;
+  margin-top:10px;
+  color: var(--red);
+  font-size:14px;
+}
+
+.btn-primary{
+  width:100%;
+  margin-top:12px;
+  border:2px solid color-mix(in srgb, var(--green) 70%, #0000);
+  background: linear-gradient(180deg, var(--green), var(--green2));
+  color:#052418;
+  padding:16px 18px;
+  border-radius:999px;
+  font-size:18px;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow: 0 16px 30px rgba(21,181,123,.30);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.btn-primary:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 20px 34px rgba(21,181,123,.35);
+}
+.btn-primary:active{transform: translateY(0)}
+.btn-primary:focus-visible{outline:3px solid var(--focus); outline-offset:2px}
+
+.tip{
+  margin-top:18px;
+  border-radius:16px;
+  border:1px solid var(--border);
+  padding:14px 16px;
+  background: color-mix(in srgb, var(--card) 75%, transparent);
+}
+.tip-title{
+  display:flex; align-items:center; gap:8px;
+  font-weight:900;
+  color: color-mix(in srgb, var(--text) 85%, var(--muted));
+  margin-bottom:6px;
+}
+.tip-text{
+  color:var(--muted);
+  line-height:1.7;
+  font-size:14px;
+}
+.foot{
+  margin-top:16px;
+  color:var(--muted);
+  font-size:12px;
+  display:flex;
+  justify-content:center;
+}
+
+/* Responsive */
+@media (max-width: 700px){
+  .card{padding:22px}
+  h1{font-size:26px}
+  .code-value{font-size:40px; letter-spacing:8px}
+  #codeInput{font-size:20px; letter-spacing:10px}
+}
+
+
+/* Refresh icon rotation */
+#btnRefresh.rot .spin{display:inline-block; animation: spin .35s linear;}
+@keyframes spin{to{transform:rotate(360deg)}}
