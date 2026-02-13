@@ -1,31 +1,36 @@
 // config.js
-// 你可以在这里配置验证通过后跳转到哪里。
-// 支持：多个官网地址轮询 + 自动测速选择最低延迟并跳转（纯前端静态）
+// 官网访问验证（静态页面）配置
+//
+// 支持两种方式：
+// 1) mode = "redirect" ：验证成功后自动测速，选择最低延迟入口并跳转（跳转模式）
+// 2) mode = "list"     ：验证成功后不自动跳转，展示“入口列表（域名打码）”，用户点击进入（如截图）
 //
 // 注意：浏览器跨域限制下，测速只能做“可达性 + 响应耗时”的近似测量（无法读取跨域响应内容）。
-// 建议让每个官网都提供一个轻量探测路径（比如 /generate_204 或 /ping.txt），并确保可被匿名访问。
+// 建议每个官网提供轻量探测路径（比如 /generate_204 或 /ping.txt），并确保匿名可访问。
 
 window.VERIFY_CONFIG = {
-  // 方案A：验证成功后先测速，从下面列表选最低延迟并跳转
-  redirectCandidates: [
-    // "https://site-c.example.com"
-    // "https://site-c.example.com"
-    // "https://site-c.example.com"
+  // "redirect" 或 "list"
+  mode: "redirect",
+
+  // 入口列表（redirect 用于测速候选；list 用于展示卡片）
+  entries: [
+    // { name: "官网入口 1", url: "https://a.example.com", note: "大陆推荐使用，海外网站会提示不安全，无视即可。" },
+    // { name: "官网入口 2", url: "https://b.example.com", note: "大陆推荐使用，海外网站会提示不安全，无视即可。" },
+    // { name: "官网入口 3", url: "https://c.example.com", note: "海外推荐使用，大陆不可用，自动适配当前网络线路。" },
+    // { name: "官网入口 4", url: "https://d.example.com", note: "海外推荐使用，大陆不可用，自动适配当前网络线路。" }
   ],
 
-  // 可选：测速时拼接的探测路径（不填则用根路径 /）
-  // 例如："/generate_204" 或 "/ping.txt"
+  // === 跳转模式专用（mode=redirect） ===
   probePath: "/generate_204",
-
-  // 单次探测超时（毫秒）
   probeTimeoutMs: 2500,
-
-  // 每个候选地址探测次数（取最小值，减小抖动）
   probeAttempts: 2,
 
-  // 都失败时的兜底：跳转到本地 success.html（可展示手动入口列表）
+  // === 列表模式专用（mode=list） ===
+  maskDisplay: true,
+
+  // 兜底页
   fallbackUrl: "./success.html",
 
-  // 可选：是否允许 ?pass=xxxx 这种方式直接通过（默认关闭）
+  // 可选：是否允许 ?pass=xxxx 直接通过（默认关闭）
   allowQueryPass: false
 };

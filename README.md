@@ -30,28 +30,28 @@
 编辑 `config.js`：
 - `redirectUrl`: 验证通过后跳转到的地址（默认 `./success.html`）
 
-## 多个官网地址轮询 + 自动选择最低延迟并跳转
 
-编辑 `config.js`：
 
+## 两种工作方式（跳转 / 列表打码）
+
+在 `config.js` 里设置：
+
+- 跳转模式（验证后自动测速最低延迟并跳转）：
+  ```js
+  mode: "redirect"
+  ```
+
+- 列表模式（验证后展示“入口列表（域名打码）”，用户点击进入）：
+  ```js
+  mode: "list",
+  maskDisplay: true
+  ```
+
+入口列表在 `entries` 中配置：
 ```js
-window.VERIFY_CONFIG = {
-  redirectCandidates: [
-    "https://a.yourdomain.com",
-    "https://b.yourdomain.com",
-    "https://c.yourdomain.com"
-  ],
-  probePath: "/generate_204",
-  probeTimeoutMs: 2500,
-  probeAttempts: 2,
-  fallbackUrl: "./success.html"
-};
+entries: [
+  { name: "官网入口 1", url: "https://a.xxx.com", note: "大陆推荐使用，海外网站会提示不安全，无视即可。" },
+  { name: "官网入口 2", url: "https://b.xxx.com", note: "大陆推荐使用，海外网站会提示不安全，无视即可。" },
+  { name: "官网入口 3", url: "https://c.xxx.com", note: "海外推荐使用，大陆不可用，自动适配当前网络线路。" }
+]
 ```
-
-### 关于测速准确性（重要）
-纯前端静态页面受浏览器跨域限制，测速只能做“请求可达 + 大致耗时”的近似测量（`fetch no-cors`）。
-为了更稳定，建议你的每个官网都提供一个轻量探测路径，例如：
-- `/generate_204`（返回 204）
-- `/ping.txt`（返回简单文本）
-
-并确保该路径允许匿名访问、响应尽量轻量。
